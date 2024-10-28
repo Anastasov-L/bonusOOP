@@ -1,3 +1,5 @@
+IF you are TA checking this: copy .gradle, .idea build and gradle from snake or tetris
+
 ## Game description
 
 Welcome to my space invader! Before everything, a quick note: I wanted to use ASCI art for the project, however when I started implementing things I realised that 
