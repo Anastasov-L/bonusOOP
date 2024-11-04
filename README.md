@@ -1,5 +1,5 @@
 ## Game description
-
+Ignore the previous remark about copying files, everything is here and is built using build gradle like all other projects for the course before.
 Welcome to my space invader! Before everything, a quick note: I wanted to use ASCI art for the project, however when I started implementing things I realised that 
 making every symbol move would be impossible. This is why my objects are strings alligned at a single point, however they have a hitbox (calculated using various shapes 
 ea elipses, circles, squares) which extends up to points where the object should be. Heres the list of features:
