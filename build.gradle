@@ -1,0 +1,63 @@
+plugins {
+    id 'scala'
+    id 'idea'
+    id 'application'
+}
+
+application {
+    // Set the main class to your game's main class
+    mainClass.set('game.SpaceInvaderGame') // Change from snake.game.SnakeGame
+}
+
+ext {
+    scalaMajorVersion = '2.13'
+    scalaVersion = "${scalaMajorVersion}.14"
+}
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url "https://jogamp.org/deployment/maven/"
+    }
+
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+sourceSets.main.scala.srcDirs = ['src']
+sourceSets.test.scala.srcDirs = ['test']
+
+dependencies {
+    implementation "com.github.micycle1:processing-core-4:4.3"
+    implementation 'org.jogamp.gluegen:gluegen-rt-main:2.5.0-rc-20230523'
+    implementation 'org.jogamp.gluegen:gluegen-rt:2.5.0-rc-20230523'
+    implementation "org.scala-lang:scala-library:2.13.14"
+    testImplementation('junit:junit:4.13.2')
+    testImplementation("org.scala-lang:scala-reflect:2.13.14")
+    testImplementation("org.scalatest:scalatest_${scalaMajorVersion}:3.0.9")
+    implementation 'net.compartmental.code:minim:2.2.2'
+}
+
+// Your custom tasks (if any) should go here, after the plugins block
+
+task zip(type: Zip) {
+    group = "prepareZipForSubmit"
+    description = "Zip your code for submission to Codegrade"
+    outputs.upToDateWhen { false }
+    dependsOn assemble
+    dependsOn testClasses
+    from fileTree(dir: '.')
+    include 'src/game/**.scala'
+    archiveFileName = 'space_invader.zip'
+    destinationDirectory = layout.buildDirectory.dir("$projectDir")
+}
+
+task testGame(type: Test) {
+    description="Run tests for the game"
+    filter {
+        includeTestsMatching "game.*"
+    }
+}
+
